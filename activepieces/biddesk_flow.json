@@ -1,0 +1,387 @@
+{
+  "displayName": "BidDesk RFQ intake",
+  "description": "RFQ e-mail (Mailpit webhook) -> extract via FastAPI -> Baserow row -> notify bid manager. Re-create the Baserow and SMTP connections after import.",
+  "schemaVersion": "27",
+  "valid": true,
+  "trigger": {
+    "name": "trigger",
+    "type": "PIECE_TRIGGER",
+    "valid": true,
+    "settings": {
+      "input": {
+        "authType": "none",
+        "authFields": {},
+        "liveMarkdown": "",
+        "syncMarkdown": "",
+        "testMarkdown": ""
+      },
+      "pieceName": "@activepieces/piece-webhook",
+      "triggerName": "catch_webhook",
+      "pieceVersion": "0.1.43",
+      "propertySettings": {
+        "authType": {
+          "type": "MANUAL"
+        },
+        "authFields": {
+          "type": "MANUAL",
+          "schema": {}
+        },
+        "liveMarkdown": {
+          "type": "MANUAL"
+        },
+        "syncMarkdown": {
+          "type": "MANUAL"
+        },
+        "testMarkdown": {
+          "type": "MANUAL"
+        }
+      }
+    },
+    "nextAction": {
+      "name": "step_1",
+      "skip": false,
+      "type": "ROUTER",
+      "valid": true,
+      "children": [
+        {
+          "name": "step_2",
+          "skip": false,
+          "type": "PIECE",
+          "valid": true,
+          "settings": {
+            "input": {
+              "url": "http://host.docker.internal:8000/extract",
+              "body": {
+                "data": {
+                  "message_id": "{{trigger['output']['body']['ID']}}"
+                }
+              },
+              "method": "POST",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "timeout": "",
+              "authType": "NONE",
+              "body_type": "json",
+              "use_proxy": false,
+              "authFields": {},
+              "failureMode": "continue_none",
+              "queryParams": {},
+              "proxy_settings": {},
+              "followRedirects": false,
+              "response_is_binary": false
+            },
+            "pieceName": "@activepieces/piece-http",
+            "actionName": "send_request",
+            "pieceVersion": "0.13.2",
+            "propertySettings": {
+              "url": {
+                "type": "MANUAL"
+              },
+              "body": {
+                "type": "MANUAL",
+                "schema": {
+                  "data": {
+                    "type": "JSON",
+                    "required": true,
+                    "displayName": "JSON Body"
+                  }
+                }
+              },
+              "data": {
+                "type": "MANUAL"
+              },
+              "method": {
+                "type": "MANUAL"
+              },
+              "headers": {
+                "type": "MANUAL"
+              },
+              "timeout": {
+                "type": "MANUAL"
+              },
+              "authType": {
+                "type": "MANUAL"
+              },
+              "body_type": {
+                "type": "MANUAL"
+              },
+              "use_proxy": {
+                "type": "MANUAL"
+              },
+              "authFields": {
+                "type": "MANUAL",
+                "schema": {}
+              },
+              "failureMode": {
+                "type": "MANUAL"
+              },
+              "queryParams": {
+                "type": "MANUAL"
+              },
+              "proxy_settings": {
+                "type": "MANUAL"
+              },
+              "followRedirects": {
+                "type": "MANUAL"
+              },
+              "response_is_binary": {
+                "type": "MANUAL"
+              }
+            },
+            "errorHandlingOptions": {
+              "retryOnFailure": {
+                "value": false
+              },
+              "continueOnFailure": {
+                "value": false
+              }
+            }
+          },
+          "nextAction": {
+            "name": "step_3",
+            "skip": false,
+            "type": "PIECE",
+            "valid": true,
+            "settings": {
+              "input": {
+                "auth": "{{connections['<CONNECTION_NAME>']}}",
+                "table_id": 108,
+                "table_fields": {
+                  "site": "{{step_2['output']['body']['site']}}",
+                  "model": "{{step_2['output']['body']['model']}}",
+                  "status": "Awaiting approval",
+                  "customer": "{{step_2['output']['body']['customer']}}",
+                  "due_date": "{{step_2['output']['body']['due_date']}}",
+                  "mailpit_id": "{{step_2['output']['body']['mailpit_id']}}",
+                  "approved_by": "",
+                  "extracted_at": "{{step_2['output']['body']['extracted_at']}}",
+                  "missing_info": "{{step_2['output']['body']['missing_info_text']}}",
+                  "service_type": "{{step_2['output']['body']['service_type']}}",
+                  "scope_summary": "{{step_2['output']['body']['scope_summary']}}",
+                  "equipment_type": "{{step_2['output']['body']['equipment_type']}}",
+                  "prompt_version": "{{step_2['output']['body']['prompt_version']}}"
+                },
+                "create_missing_select_options": true
+              },
+              "pieceName": "@activepieces/piece-baserow",
+              "actionName": "baserow_create_row",
+              "pieceVersion": "0.12.3",
+              "propertySettings": {
+                "table_id": {
+                  "type": "MANUAL"
+                },
+                "service_type": {
+                  "type": "DYNAMIC"
+                },
+                "table_fields": {
+                  "type": "MANUAL",
+                  "schema": {
+                    "site": {
+                      "type": "SHORT_TEXT",
+                      "required": false,
+                      "displayName": "site",
+                      "defaultValue": ""
+                    },
+                    "model": {
+                      "type": "SHORT_TEXT",
+                      "required": false,
+                      "displayName": "model",
+                      "defaultValue": ""
+                    },
+                    "status": {
+                      "type": "STATIC_DROPDOWN",
+                      "options": {
+                        "options": [],
+                        "disabled": false
+                      },
+                      "required": false,
+                      "displayName": "status"
+                    },
+                    "customer": {
+                      "type": "SHORT_TEXT",
+                      "required": false,
+                      "displayName": "customer",
+                      "defaultValue": ""
+                    },
+                    "due_date": {
+                      "type": "DATE_TIME",
+                      "required": false,
+                      "displayName": "due_date",
+                      "placeholder": "2026-01-31T14:30:00Z"
+                    },
+                    "mailpit_id": {
+                      "type": "SHORT_TEXT",
+                      "required": false,
+                      "displayName": "mailpit_id",
+                      "defaultValue": ""
+                    },
+                    "approved_by": {
+                      "type": "SHORT_TEXT",
+                      "required": false,
+                      "displayName": "approved_by",
+                      "defaultValue": ""
+                    },
+                    "extracted_at": {
+                      "type": "DATE_TIME",
+                      "required": false,
+                      "displayName": "extracted_at",
+                      "placeholder": "2026-01-31T14:30:00Z"
+                    },
+                    "missing_info": {
+                      "type": "LONG_TEXT",
+                      "required": false,
+                      "displayName": "missing_info"
+                    },
+                    "service_type": {
+                      "type": "STATIC_DROPDOWN",
+                      "options": {
+                        "options": [],
+                        "disabled": false
+                      },
+                      "required": false,
+                      "displayName": "service_type"
+                    },
+                    "scope_summary": {
+                      "type": "LONG_TEXT",
+                      "required": false,
+                      "displayName": "scope_summary"
+                    },
+                    "equipment_type": {
+                      "type": "STATIC_DROPDOWN",
+                      "options": {
+                        "options": [],
+                        "disabled": false
+                      },
+                      "required": false,
+                      "displayName": "equipment_type"
+                    },
+                    "prompt_version": {
+                      "type": "SHORT_TEXT",
+                      "required": false,
+                      "displayName": "prompt_version",
+                      "defaultValue": ""
+                    }
+                  }
+                },
+                "equipment_type": {
+                  "type": "DYNAMIC"
+                },
+                "create_missing_select_options": {
+                  "type": "MANUAL"
+                }
+              },
+              "errorHandlingOptions": {
+                "retryOnFailure": {
+                  "value": false
+                },
+                "continueOnFailure": {
+                  "value": false
+                }
+              }
+            },
+            "nextAction": {
+              "name": "step_4",
+              "skip": false,
+              "type": "PIECE",
+              "valid": true,
+              "settings": {
+                "input": {
+                  "cc": [],
+                  "to": [
+                    "bid.manager@nordwind.example"
+                  ],
+                  "bcc": [],
+                  "auth": "{{connections['<CONNECTION_NAME>']}}",
+                  "body": "A new RFQ was extracted and is waiting for your approval.\nCustomer: {{step_2['output']['body']['customer']}}\nSite: {{step_2['output']['body']['site']}}\nEquipment: {{step_2['output']['body']['equipment_type']}}\nService: {{step_2['output']['body']['service_type']}}\nDue date: {{step_2['output']['body']['due_date']}}\nMissing information: {{step_2['output']['body']['missing_info_text']}}\n\nApprove in Baserow: http://localhost:8081",
+                  "from": "biddesk@nordwind.example",
+                  "replyTo": "",
+                  "subject": "[BidDesk] New RFQ awaiting approval: {{step_2['output']['body']['customer']}}",
+                  "body_type": "plain_text",
+                  "senderName": "",
+                  "attachments": [],
+                  "customHeaders": {}
+                },
+                "pieceName": "@activepieces/piece-smtp",
+                "actionName": "send-email",
+                "pieceVersion": "0.5.0",
+                "propertySettings": {
+                  "cc": {
+                    "type": "MANUAL"
+                  },
+                  "to": {
+                    "type": "MANUAL"
+                  },
+                  "bcc": {
+                    "type": "MANUAL"
+                  },
+                  "body": {
+                    "type": "MANUAL"
+                  },
+                  "from": {
+                    "type": "MANUAL"
+                  },
+                  "replyTo": {
+                    "type": "MANUAL"
+                  },
+                  "subject": {
+                    "type": "MANUAL"
+                  },
+                  "body_type": {
+                    "type": "MANUAL"
+                  },
+                  "senderName": {
+                    "type": "MANUAL"
+                  },
+                  "attachments": {
+                    "type": "MANUAL"
+                  },
+                  "customHeaders": {
+                    "type": "MANUAL"
+                  }
+                },
+                "errorHandlingOptions": {
+                  "retryOnFailure": {
+                    "value": false
+                  },
+                  "continueOnFailure": {
+                    "value": false
+                  }
+                }
+              },
+              "displayName": "Send Email"
+            },
+            "displayName": "Create Row"
+          },
+          "displayName": "Send HTTP request"
+        },
+        null
+      ],
+      "settings": {
+        "branches": [
+          {
+            "branchName": "Branch 1",
+            "branchType": "CONDITION",
+            "conditions": [
+              [
+                {
+                  "operator": "TEXT_START_WITH",
+                  "firstValue": "{{trigger['output']['body']['Subject']}}",
+                  "secondValue": "RFQ",
+                  "caseSensitive": false
+                }
+              ]
+            ]
+          },
+          {
+            "branchName": "Otherwise",
+            "branchType": "FALLBACK"
+          }
+        ],
+        "executionType": "EXECUTE_FIRST_MATCH"
+      },
+      "displayName": "Router"
+    },
+    "displayName": "Catch Webhook"
+  }
+}

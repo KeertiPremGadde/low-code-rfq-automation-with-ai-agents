@@ -1,0 +1,21 @@
+# Secrets
+.env
+activepieces.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Runtime output
+logs/
+data/inbox/
+
+# Private planning material (never publish)
+*build_plan*.pdf
+private/
+
+# Editors / OS
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,106 @@
+# BidDesk - local stack (step 1)
+# Personal self-learning project. Not affiliated with any employer. All data is synthetic.
+#
+# Services and host ports:
+#   mailpit              SMTP host 1025 (container 2525), web UI + REST API 8025
+#   baserow              8081 (container port 80)
+#   activepieces         8080 (container port 80, app + worker in one container), postgres, redis
+#   appsmith             8082 (container port 80), OPTIONAL: only with --profile extras
+# The Python FastAPI service runs on Windows (not in Docker) on port 8000.
+#
+# Inside this compose network containers call each other by service name:
+#   http://activepieces:80, http://baserow:80, mailpit:2525
+# Containers reach the Windows host (FastAPI) at http://host.docker.internal:8000
+
+name: biddesk
+
+services:
+  mailpit:
+    image: axllent/mailpit:v1.33
+    container_name: biddesk-mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:2525"   # host 1025 -> container 2525 (Activepieces SMTP piece only allows 25/465/587/2525)
+      - "8025:8025"
+    environment:
+      MP_MAX_MESSAGES: 1000
+      MP_SMTP_BIND_ADDR: 0.0.0.0:2525
+      # Activepieces SMTP piece always sends a username/password: accept any, over plain SMTP.
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      # Filled in at step 4 (needs the Activepieces flow id). Empty = webhook off.
+      MP_WEBHOOK_URL: ${MP_WEBHOOK_URL:-}
+    volumes:
+      - mailpit_data:/data
+    command: ["--database", "/data/mailpit.db"]
+
+  baserow:
+    image: baserow/baserow:2.4.1
+    container_name: biddesk-baserow
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      BASEROW_PUBLIC_URL: http://localhost:8081
+      # Lets Activepieces call Baserow as http://baserow inside the network.
+      BASEROW_EXTRA_ALLOWED_HOSTS: baserow,host.docker.internal
+      # Baserow's Caddy only routes /api/* to the backend for hosts listed in the public URLs;
+      # without this, http://baserow/api/... is answered by the web frontend with a 404.
+      BASEROW_EXTRA_PUBLIC_URLS: http://baserow,http://host.docker.internal:8081
+    volumes:
+      - baserow_data:/baserow/data
+
+  activepieces:
+    image: ghcr.io/activepieces/activepieces:0.92.3
+    container_name: biddesk-activepieces
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - ap-postgres
+      - ap-redis
+    env_file: activepieces.env
+    # Single container = app + worker (default AP_CONTAINER_TYPE=WORKER_AND_APP). A separate
+    # worker container cannot reach the app through AP_FRONTEND_URL=http://localhost:8080
+    # (localhost inside the worker is the worker itself), so flow runs would fail.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ap_cache:/usr/src/app/cache
+
+  ap-postgres:
+    image: pgvector/pgvector:0.8.0-pg14
+    container_name: biddesk-ap-postgres
+    restart: unless-stopped
+    env_file: activepieces.env
+    volumes:
+      - ap_postgres_data:/var/lib/postgresql/data
+
+  ap-redis:
+    image: redis:7.0.7
+    container_name: biddesk-ap-redis
+    restart: unless-stopped
+    volumes:
+      - ap_redis_data:/data
+
+  # Optional extra (compose profile "extras"): not started by a plain `docker compose up -d`.
+  #   docker compose --profile extras up -d appsmith      ->  http://localhost:8082
+  appsmith:
+    image: appsmith/appsmith-ce:v2.6.0
+    container_name: biddesk-appsmith
+    restart: unless-stopped
+    profiles: ["extras"]
+    ports:
+      - "8082:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - appsmith_stacks:/appsmith-stacks
+
+volumes:
+  mailpit_data:
+  baserow_data:
+  ap_cache:
+  ap_postgres_data:
+  ap_redis_data:
+  appsmith_stacks:

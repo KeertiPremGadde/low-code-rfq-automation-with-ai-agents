@@ -1,0 +1,49 @@
+{
+  "companies": [
+    "Nordwind Turbine Services",
+    "Nordwind",
+    "Kestrel Power Partners",
+    "Aurelian Energy",
+    "Brightwater Utilities",
+    "Solvik Petrochemicals",
+    "Meridian Gas Transmission",
+    "Halden Steel Works",
+    "Corvane District Heating",
+    "Piraeus Offshore Services",
+    "Valtara Cement",
+    "Moorfield Renewables"
+  ],
+  "sites": [
+    "Brightwater North",
+    "Calder Bay",
+    "Compressor Station 12",
+    "Compressor Station 7",
+    "Corvane CHP",
+    "Eastgate Heat Plant",
+    "Fjordheim Works",
+    "Halden Mill",
+    "Harbourside Station",
+    "Marlow Fields",
+    "Moor Hybrid Plant",
+    "Ostrava Ridge",
+    "Platform Alpha",
+    "Platform Delta",
+    "Rauma Yard",
+    "Solvik Terminal",
+    "Tessin Valley Plant",
+    "Valtara Kiln Plant"
+  ],
+  "units": [
+    "NW-22 aeroderivative unit",
+    "NW-30 aeroderivative unit",
+    "NW-45 dry low-emission combustor set",
+    "NW-45 heavy-duty unit",
+    "NW-60 can-annular liner set",
+    "NW-60 heavy-duty unit",
+    "NW-80 heavy-duty unit",
+    "NW-C12 axial air compressor",
+    "NW-C6 centrifugal gas compressor",
+    "NW-G120 hydrogen-cooled generator",
+    "NW-G50 air-cooled generator"
+  ]
+}

@@ -1,0 +1,31 @@
+bid_id,customer,equipment_type,service_type,scope,price_band,year,outcome
+NTS-B-2020-001,Halden Steel Works,heavy-duty gas turbine,upgrade,NW-45 heavy-duty unit: Efficiency upgrade: new compressor blading and improved tip clearances.,500k-1M EUR,2020,Won
+NTS-B-2020-002,Aurelian Energy,aeroderivative gas turbine,overhaul,NW-22 aeroderivative unit: Power turbine overhaul with bearing and seal renewal.,500k-1M EUR,2020,Won
+NTS-B-2020-003,Solvik Petrochemicals,generator,inspection,NW-G50 air-cooled generator: Borescope and wedge-tightness inspection of the stator without rotor removal.,50-150k EUR,2020,Won
+NTS-B-2020-004,Solvik Petrochemicals,heavy-duty gas turbine,overhaul,"NW-80 heavy-duty unit: Major overhaul: hot gas path blade and vane replacement, bearing renewal and rotor balancing.",500k-1M EUR,2020,Lost
+NTS-B-2020-005,Halden Steel Works,aeroderivative gas turbine,overhaul,NW-30 aeroderivative unit: Gas generator exchange and overhaul with performance test run.,150-500k EUR,2020,Lost
+NTS-B-2020-006,Valtara Cement,generator,inspection,NW-G50 air-cooled generator: Rotor inspection with retaining ring test and electrical testing of the stator winding.,150-500k EUR,2020,Lost
+NTS-B-2020-007,Corvane District Heating,aeroderivative gas turbine,spare parts,"NW-22 aeroderivative unit: Supply of an inlet filter set, start-motor spares and gasket kit.",<50k EUR,2020,Won
+NTS-B-2021-001,Moorfield Renewables,heavy-duty gas turbine,spare parts,"NW-45 heavy-duty unit: Supply of first-stage buckets, shroud blocks and a gasket kit for the next planned outage.",500k-1M EUR,2021,No bid
+NTS-B-2021-002,Meridian Gas Transmission,compressor,inspection,NW-C6 centrifugal gas compressor: Blade wash and inspection of inlet guide vanes and diaphragms.,150-500k EUR,2021,No bid
+NTS-B-2021-003,Kestrel Power Partners,compressor,spare parts,"NW-C12 axial air compressor: Supply of a dry gas seal cartridge, tilting-pad bearings and O-ring kit.",50-150k EUR,2021,Won
+NTS-B-2021-004,Halden Steel Works,compressor,spare parts,"NW-C6 centrifugal gas compressor: Supply of spare impeller, balance piston and coupling elements.",<50k EUR,2021,Lost
+NTS-B-2021-005,Solvik Petrochemicals,generator,overhaul,NW-G50 air-cooled generator: Generator rewind and stator core re-insulation with final high-voltage test.,50-150k EUR,2021,Won
+NTS-B-2021-006,Solvik Petrochemicals,heavy-duty gas turbine,upgrade,NW-45 heavy-duty unit: Control system upgrade and retrofit of emissions-reduction hardware.,500k-1M EUR,2021,Won
+NTS-B-2022-001,Kestrel Power Partners,aeroderivative gas turbine,overhaul,NW-30 aeroderivative unit: Gas generator exchange and overhaul with performance test run.,500k-1M EUR,2022,Lost
+NTS-B-2022-002,Piraeus Offshore Services,combustion parts,spare parts,"NW-60 can-annular liner set: Supply of combustion liners and transition pieces, delivered to site.",50-150k EUR,2022,Lost
+NTS-B-2023-001,Corvane District Heating,compressor,upgrade,NW-C12 axial air compressor: Anti-surge control upgrade and retrofit of vibration monitoring.,50-150k EUR,2023,Lost
+NTS-B-2023-002,Aurelian Energy,heavy-duty gas turbine,overhaul,"NW-45 heavy-duty unit: Major overhaul: hot gas path blade and vane replacement, bearing renewal and rotor balancing.",500k-1M EUR,2023,No bid
+NTS-B-2023-003,Corvane District Heating,compressor,upgrade,NW-C12 axial air compressor: Anti-surge control upgrade and retrofit of vibration monitoring.,500k-1M EUR,2023,Lost
+NTS-B-2024-001,Moorfield Renewables,generator,inspection,NW-G50 air-cooled generator: Rotor inspection with retaining ring test and electrical testing of the stator winding.,50-150k EUR,2024,No bid
+NTS-B-2024-002,Aurelian Energy,generator,inspection,NW-G120 hydrogen-cooled generator: Rotor inspection with retaining ring test and electrical testing of the stator winding.,150-500k EUR,2024,Won
+NTS-B-2024-003,Aurelian Energy,heavy-duty gas turbine,inspection,NW-45 heavy-duty unit: Combustion inspection with fuel nozzle flow testing and liner check.,150-500k EUR,2024,Won
+NTS-B-2024-004,Halden Steel Works,combustion parts,spare parts,"NW-60 can-annular liner set: Supply of fuel nozzle tips, cross-fire tubes and spark plugs.",50-150k EUR,2024,No bid
+NTS-B-2024-005,Solvik Petrochemicals,combustion parts,inspection,NW-60 can-annular liner set: Fuel nozzle flow test and combustor casing inspection.,<50k EUR,2024,Lost
+NTS-B-2024-006,Moorfield Renewables,generator,inspection,NW-G50 air-cooled generator: Rotor inspection with retaining ring test and electrical testing of the stator winding.,50-150k EUR,2024,Won
+NTS-B-2025-001,Brightwater Utilities,combustion parts,upgrade,NW-60 can-annular liner set: Retrofit of improved liner cooling design for extended inspection interval.,150-500k EUR,2025,Lost
+NTS-B-2025-002,Piraeus Offshore Services,aeroderivative gas turbine,inspection,NW-22 aeroderivative unit: Gearbox and accessory drive inspection including oil debris analysis.,150-500k EUR,2025,Lost
+NTS-B-2025-003,Piraeus Offshore Services,compressor,upgrade,NW-C12 axial air compressor: Re-rate of the compressor to a new duty point with new impellers.,>1M EUR,2025,Lost
+NTS-B-2025-004,Valtara Cement,combustion parts,overhaul,NW-60 can-annular liner set: Refurbishment of combustion liners and transition pieces with new thermal barrier coating.,500k-1M EUR,2025,Won
+NTS-B-2025-005,Meridian Gas Transmission,aeroderivative gas turbine,overhaul,NW-30 aeroderivative unit: Power turbine overhaul with bearing and seal renewal.,500k-1M EUR,2025,No bid
+NTS-B-2025-006,Solvik Petrochemicals,combustion parts,inspection,NW-45 dry low-emission combustor set: Dimensional and crack inspection of liners and transition pieces with reconditioning recommendation.,500k-1M EUR,2025,Won

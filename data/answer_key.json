@@ -1,0 +1,240 @@
+[
+  {
+    "file": "rfq_01.pdf",
+    "customer": "Kestrel Power Partners",
+    "site": "Harbourside Station",
+    "equipment_type": "heavy-duty gas turbine",
+    "service_type": "spare parts",
+    "due_date": "2027-02-05",
+    "scope_summary": "Spare parts of NW-45 heavy-duty unit: Supply of one set of first-stage nozzles and a set of fuel nozzles.",
+    "missing_info": [
+      "operating_hours"
+    ]
+  },
+  {
+    "file": "rfq_02.pdf",
+    "customer": "Aurelian Energy",
+    "site": "Tessin Valley Plant",
+    "equipment_type": "aeroderivative gas turbine",
+    "service_type": "upgrade",
+    "due_date": "2027-05-08",
+    "scope_summary": "Upgrade of NW-22 aeroderivative unit: Installation of online monitoring package with vibration and temperature analytics.",
+    "missing_info": [
+      "outage_window"
+    ]
+  },
+  {
+    "file": "rfq_03.pdf",
+    "customer": "Brightwater Utilities",
+    "site": "Calder Bay",
+    "equipment_type": "compressor",
+    "service_type": "overhaul",
+    "due_date": "2027-03-02",
+    "scope_summary": "Overhaul of NW-C12 axial air compressor: Full compressor overhaul with rotor balancing, bearing and dry gas seal renewal.",
+    "missing_info": []
+  },
+  {
+    "file": "rfq_04.pdf",
+    "customer": "Solvik Petrochemicals",
+    "site": "Fjordheim Works",
+    "equipment_type": "generator",
+    "service_type": "inspection",
+    "due_date": "2027-04-21",
+    "scope_summary": "Inspection of NW-G50 air-cooled generator: Borescope and wedge-tightness inspection of the stator without rotor removal.",
+    "missing_info": [
+      "serial_number"
+    ]
+  },
+  {
+    "file": "rfq_05.pdf",
+    "customer": "Meridian Gas Transmission",
+    "site": null,
+    "equipment_type": "combustion parts",
+    "service_type": "inspection",
+    "due_date": "2027-02-17",
+    "scope_summary": "Inspection of NW-45 dry low-emission combustor set: Dimensional and crack inspection of liners and transition pieces with reconditioning recommendation.",
+    "missing_info": [
+      "site"
+    ]
+  },
+  {
+    "file": "rfq_06.pdf",
+    "customer": "Halden Steel Works",
+    "site": "Rauma Yard",
+    "equipment_type": "heavy-duty gas turbine",
+    "service_type": "spare parts",
+    "due_date": "2027-01-27",
+    "scope_summary": "Spare parts of NW-80 heavy-duty unit: Supply of first-stage buckets, shroud blocks and a gasket kit for the next planned outage.",
+    "missing_info": []
+  },
+  {
+    "file": "rfq_07.pdf",
+    "customer": "Corvane District Heating",
+    "site": null,
+    "equipment_type": "aeroderivative gas turbine",
+    "service_type": "upgrade",
+    "due_date": "2027-02-26",
+    "scope_summary": "Upgrade of NW-22 aeroderivative unit: Installation of online monitoring package with vibration and temperature analytics.",
+    "missing_info": [
+      "operating_hours",
+      "outage_window",
+      "site"
+    ]
+  },
+  {
+    "file": "rfq_08.pdf",
+    "customer": "Piraeus Offshore Services",
+    "site": "Platform Delta",
+    "equipment_type": "compressor",
+    "service_type": "overhaul",
+    "due_date": "2027-03-16",
+    "scope_summary": "Overhaul of NW-C12 axial air compressor: Full compressor overhaul with rotor balancing, bearing and dry gas seal renewal.",
+    "missing_info": [
+      "serial_number"
+    ]
+  },
+  {
+    "file": "rfq_09.pdf",
+    "customer": "Valtara Cement",
+    "site": "Valtara Kiln Plant",
+    "equipment_type": "generator",
+    "service_type": "inspection",
+    "due_date": "2027-03-07",
+    "scope_summary": "Inspection of NW-G50 air-cooled generator: Rotor inspection with retaining ring test and electrical testing of the stator winding.",
+    "missing_info": []
+  },
+  {
+    "file": "rfq_10.pdf",
+    "customer": "Moorfield Renewables",
+    "site": null,
+    "equipment_type": "combustion parts",
+    "service_type": "inspection",
+    "due_date": null,
+    "scope_summary": "Inspection of NW-60 can-annular liner set: Fuel nozzle flow test and combustor casing inspection.",
+    "missing_info": [
+      "due_date",
+      "serial_number",
+      "site"
+    ]
+  },
+  {
+    "file": "rfq_11.pdf",
+    "customer": "Corvane District Heating",
+    "site": "Corvane CHP",
+    "equipment_type": "heavy-duty gas turbine",
+    "service_type": "spare parts",
+    "due_date": null,
+    "scope_summary": "Spare parts of NW-45 heavy-duty unit: Supply of one set of first-stage nozzles and a set of fuel nozzles.",
+    "missing_info": [
+      "due_date",
+      "operating_hours"
+    ]
+  },
+  {
+    "file": "rfq_12.pdf",
+    "customer": "Kestrel Power Partners",
+    "site": "Marlow Fields",
+    "equipment_type": "aeroderivative gas turbine",
+    "service_type": "upgrade",
+    "due_date": "2027-04-09",
+    "scope_summary": "Upgrade of NW-22 aeroderivative unit: Installation of online monitoring package with vibration and temperature analytics.",
+    "missing_info": []
+  },
+  {
+    "file": "rfq_13.pdf",
+    "customer": "Piraeus Offshore Services",
+    "site": null,
+    "equipment_type": "compressor",
+    "service_type": "overhaul",
+    "due_date": "2027-04-05",
+    "scope_summary": "Overhaul of NW-C6 centrifugal gas compressor: Overhaul of the bundle and bearing housing with new labyrinth seals.",
+    "missing_info": [
+      "operating_hours",
+      "outage_window",
+      "site"
+    ]
+  },
+  {
+    "file": "rfq_14.pdf",
+    "customer": "Halden Steel Works",
+    "site": "Rauma Yard",
+    "equipment_type": "generator",
+    "service_type": "inspection",
+    "due_date": null,
+    "scope_summary": "Inspection of NW-G50 air-cooled generator: Borescope and wedge-tightness inspection of the stator without rotor removal.",
+    "missing_info": [
+      "due_date",
+      "outage_window",
+      "serial_number"
+    ]
+  },
+  {
+    "file": "rfq_15.pdf",
+    "customer": "Kestrel Power Partners",
+    "site": "Harbourside Station",
+    "equipment_type": "combustion parts",
+    "service_type": "inspection",
+    "due_date": "2026-12-22",
+    "scope_summary": "Inspection of NW-45 dry low-emission combustor set: Fuel nozzle flow test and combustor casing inspection.",
+    "missing_info": []
+  },
+  {
+    "file": "rfq_16.pdf",
+    "customer": "Brightwater Utilities",
+    "site": "Calder Bay",
+    "equipment_type": "heavy-duty gas turbine",
+    "service_type": "spare parts",
+    "due_date": "2027-03-19",
+    "scope_summary": "Spare parts of NW-45 heavy-duty unit: Supply of one set of first-stage nozzles and a set of fuel nozzles.",
+    "missing_info": [
+      "serial_number"
+    ]
+  },
+  {
+    "file": "rfq_17.pdf",
+    "customer": "Aurelian Energy",
+    "site": "Tessin Valley Plant",
+    "equipment_type": "aeroderivative gas turbine",
+    "service_type": "upgrade",
+    "due_date": null,
+    "scope_summary": "Upgrade of NW-22 aeroderivative unit: Installation of online monitoring package with vibration and temperature analytics.",
+    "missing_info": [
+      "due_date",
+      "operating_hours"
+    ]
+  },
+  {
+    "file": "rfq_18.pdf",
+    "customer": "Aurelian Energy",
+    "site": "Ostrava Ridge",
+    "equipment_type": "compressor",
+    "service_type": "overhaul",
+    "due_date": "2027-04-24",
+    "scope_summary": "Overhaul of NW-C6 centrifugal gas compressor: Full compressor overhaul with rotor balancing, bearing and dry gas seal renewal.",
+    "missing_info": []
+  },
+  {
+    "file": "rfq_19.pdf",
+    "customer": "Solvik Petrochemicals",
+    "site": null,
+    "equipment_type": "generator",
+    "service_type": "inspection",
+    "due_date": "2027-03-12",
+    "scope_summary": "Inspection of NW-G50 air-cooled generator: Borescope and wedge-tightness inspection of the stator without rotor removal.",
+    "missing_info": [
+      "site"
+    ]
+  },
+  {
+    "file": "rfq_20.pdf",
+    "customer": "Meridian Gas Transmission",
+    "site": "Compressor Station 7",
+    "equipment_type": "combustion parts",
+    "service_type": "inspection",
+    "due_date": "2027-04-22",
+    "scope_summary": "Inspection of NW-45 dry low-emission combustor set: Fuel nozzle flow test and combustor casing inspection.",
+    "missing_info": [
+      "outage_window"
+    ]
+  }
+]
