@@ -1,4 +1,4 @@
-# BidDesk - local stack (step 1)
+# BidDesk - local stack
 #
 # Services and host ports:
 #   mailpit              SMTP host 1025 (container 2525), web UI + REST API 8025
@@ -27,7 +27,7 @@ services:
       # Activepieces SMTP piece always sends a username/password: accept any, over plain SMTP.
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-      # Filled in at step 4 (needs the Activepieces flow id). Empty = webhook off.
+      # Set after publishing the Activepieces flow (needs its flow id). Empty = webhook off.
       MP_WEBHOOK_URL: ${MP_WEBHOOK_URL:-}
     volumes:
       - mailpit_data:/data

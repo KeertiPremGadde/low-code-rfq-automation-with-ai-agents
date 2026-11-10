@@ -6,7 +6,7 @@ Fictional company: **Nordwind Turbine Services**. Every customer, site, person, 
 
 Requests for quotation (RFQs) arrive as e-mails with a PDF attached. Someone opens each one, retypes the customer, site, equipment, service type and due date into a tracker, notices what is missing, and tells the bid manager. It is slow, error-prone and nobody can see what is waiting for a decision.
 
-BidDesk automates the retyping and keeps the decision with a person:
+**BidDesk**, the app in this repo, automates the retyping and keeps the decision with a person:
 
 1. An RFQ e-mail arrives.
 2. A no-code flow picks it up, sends the PDF through an AI extraction step, and writes a row to a table with status **Awaiting approval**.
@@ -57,46 +57,16 @@ See [docs/governance.md](docs/governance.md) for the controls and what productio
 
 ## Quick start
 
-Needs Docker Desktop, Python 3.12 or newer (developed on 3.14) and an Anthropic API key. Commands are for PowerShell on Windows.
+Needs Docker Desktop, Python 3.12+ and an Anthropic API key.
 
 ```powershell
-git clone <this-repo-url> biddesk
+git clone https://github.com/KeertiPremGadde/low-code-rfq-automation-with-ai-agents.git biddesk
 cd biddesk
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python -m spacy download en_core_web_lg
-
-python scripts\init_env.py          # creates .env and activepieces.env (random secrets)
-# open .env and paste your ANTHROPIC_API_KEY, and set BASEROW_ADMIN_EMAIL / BASEROW_ADMIN_PASSWORD
-# (your own choice: setup_baserow.py registers this account as the Baserow admin; it refuses the CHANGE_ME placeholder)
-
-docker compose up -d                # first Baserow start takes several minutes (migrations)
-python scripts\check_step1.py       # health check of the stack
-
-python scripts\setup_baserow.py     # creates the BidDesk database, tables, imports past bids
-# paste the three BASEROW_* lines it prints into .env
-
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+python scripts\init_env.py      # creates .env (add your ANTHROPIC_API_KEY)
+docker compose up -d            # Mailpit, Baserow, Activepieces
 ```
 
-`data/` (20 RFQ PDFs, 30 past bids, the answer key) is committed; `python scripts\generate_data.py` regenerates it.
-
-### Baserow: create the approval queue view
-
-Open http://localhost:8081, log in with the `BASEROW_ADMIN_EMAIL` / `BASEROW_ADMIN_PASSWORD` from your `.env`, open the `RFQs` table and add a **Grid** view named `Approval queue` with the filter `status` **is** `Awaiting approval`. (Kanban would be nicer but is a paid Baserow feature.)
-
-### Activepieces: import the flow and re-create the connections
-
-1. Open http://localhost:8080 and create the first (local) account.
-2. Import [`activepieces/biddesk_flow.json`](activepieces/biddesk_flow.json) as a new flow.
-3. Connections are deliberately not exported. Re-create them and re-select them in the two steps that use them:
-   - **Baserow**: API URL `http://baserow`, authenticate with the database token from `.env` (or the Baserow login).
-   - **SMTP**: host `mailpit`, port `2525`, any dummy user and password, no TLS.
-4. In the Create Row step check `table_id` is your `RFQs` table id (`BASEROW_RFQS_TABLE_ID` in `.env`).
-5. Publish the flow, copy its webhook URL, put it in `.env` as `MP_WEBHOOK_URL=http://activepieces:80/api/v1/webhooks/<flowId>` and run `docker compose up -d mailpit` so Mailpit calls the flow on every new mail.
-
-If the import does not work in your Activepieces version, rebuild the five steps by hand from the table in the [citizen developer guide](docs/citizen-developer-guide.md).
+Full setup (Python environment, Baserow tables, importing the flow): [docs/SETUP.md](docs/SETUP.md).
 
 ## Demo walkthrough
 
@@ -133,7 +103,7 @@ python scripts\send_rfq.py rfq_01      # one RFQ; or --all for all 20
 
 *The notification e-mail: extracted fields and what is missing (here the site).*
 
-Output of `python scripts\ask_demo.py` for two of the five questions (questions 2 and 4). Note the agent says only price bands are recorded, and the citations are bid ids the tools actually returned:
+Output of `python scripts\ask_demo.py` for one of the five questions. The agent says only price bands are recorded, and cites only bid ids the tools returned:
 
 ```text
 ==============================================================================
@@ -155,40 +125,6 @@ NTS-B-2023-001 and NTS-B-2023-003 have the same customer and scope but very diff
 Cited bid_ids: NTS-B-2023-001, NTS-B-2023-003, NTS-B-2025-003
 Tools used:    search_past_bids
 
-==============================================================================
-Q4: Summarise RFQ row 3 and show similar past bids.
-------------------------------------------------------------------------------
-**RFQ row 3**
-- **Customer and site:** Brightwater Utilities, Calder Bay.
-- **Equipment and service:** compressor, overhaul.
-- **Scope:** Full overhaul of an NW-C12 axial air compressor. It includes rotor balancing and
-renewal of the bearings and dry gas seal.
-- **Outage window:** 04 Feb 2027 to 23 Mar 2027.
-- **Due date:** 2027-03-02.
-- **Status:** Approved by the Bid Manager.
-- **Missing info:** None.
-
-**Similar past bids**
-I found no past bids with the same equipment and service (compressor and overhaul). The closest
-matches are other compressor bids on the same NW-C12 model, but none is an overhaul:
-- **NTS-B-2021-003** (Kestrel Power Partners, 2021): Spare parts for an NW-C12, covering a dry gas
-seal cartridge and bearings. Band 50-150k EUR, Won. This is the closest match because the components
-overlap with the RFQ's seal and bearing renewal.
-- **NTS-B-2023-001** (Corvane District Heating, 2023): NW-C12 anti-surge and vibration monitoring
-upgrade. Band 50-150k EUR, Lost. Same model only.
-- **NTS-B-2023-003** (Corvane District Heating, 2023): NW-C12 anti-surge and vibration monitoring
-upgrade. Band 500k-1M EUR, Lost. Same model only.
-- **NTS-B-2025-003** (Piraeus Offshore Services, 2025): NW-C12 re-rate with new impellers. Band >1M
-EUR, Lost. Same model only.
-
-Among overhauls on other equipment, **NTS-B-2020-004** (Solvik Petrochemicals, 2020) is a heavy-duty
-turbine overhaul that included bearing renewal and rotor balancing. Band 500k-1M EUR, Lost. It is
-only a loose match on scope.
-
-Past bids record price bands only, not exact prices.
-
-Cited bid_ids: NTS-B-2021-003, NTS-B-2023-001, NTS-B-2023-003, NTS-B-2025-003, NTS-B-2020-004
-Tools used:    get_rfq, search_past_bids, search_past_bids, search_past_bids
 ```
 
 ## Evaluation
@@ -217,27 +153,19 @@ Tools used:    get_rfq, search_past_bids, search_past_bids, search_past_bids
 - **One PDF per mail, text PDFs only**: no scanned documents or OCR.
 - **Masking is limited on purpose** to names, e-mail addresses and phone numbers. Addresses, free-text identifiers and anything unusual are not masked.
 - **Synthetic data**: accuracy on real documents is untested.
-- The flow export was built from the flow definition stored by Activepieces rather than the UI export button; connection ids and test data are stripped.
 
-## Optional extras: Appsmith
+## Next steps
 
-Not part of the core stack and not started by default. [Appsmith](https://www.appsmith.com/) (open-source, low-code app builder) is the natural next layer: a small approval app on top of the Baserow `RFQs` table, with a list of pending RFQs and Approve / Reject buttons instead of editing rows in Baserow's grid.
-
-```powershell
-docker compose --profile extras up -d appsmith
-```
-
-Then open http://localhost:8082 and create the local admin account on the first visit. The image is about 1 GB and the first start takes a few minutes. To stop it: `docker compose --profile extras stop appsmith`.
-
-This repo only provides the container (image pinned in `docker-compose.yml`, data in the `appsmith_stacks` volume). The app itself is built in the Appsmith UI: add a REST API datasource pointing at `http://baserow` (it shares the compose network) with the Baserow database token in an `Authorization: Token ...` header.
+- An approval app in Appsmith on top of the `RFQs` table (the container is already in `docker-compose.yml`).
+- Let the flow stop on `skipped`, and enforce who may approve.
 
 ## Repository layout
 
 ```
 app/            FastAPI service: main, extract, agent, masking, llm, baserow, mailpit, schemas, logging_utils
-scripts/        init_env, check_step1, generate_data, setup_baserow, send_rfq, eval, ask_demo
+scripts/        init_env, check_stack, generate_data, setup_baserow, send_rfq, eval, ask_demo
 activepieces/   biddesk_flow.json (sanitised flow export)
 data/           20 RFQ PDFs, past_bids.csv, answer_key.json, allowlist.json (all synthetic)
-docs/           citizen-developer-guide.md, governance.md, eval_results.md
+docs/           SETUP.md, citizen-developer-guide.md, governance.md, eval_results.md
 docker-compose.yml   Mailpit, Baserow, Activepieces (+ Postgres, Redis)
 ```

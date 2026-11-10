@@ -1,6 +1,6 @@
-"""Step 1 health check (stdlib only, run from the project root).
+"""Health check of the local stack (stdlib only, run from the project root).
 
-    python scripts/check_step1.py
+    python scripts/check_stack.py
 
 Checks:
   1. Mailpit UI/API, Baserow and Activepieces answer on localhost.
@@ -45,13 +45,13 @@ for name, url in [
         record(name, False, str(e))
 
 # 2. SMTP -> Mailpit ------------------------------------------------------------
-subject = f"BidDesk step-1 test {int(time.time())}"
+subject = f"BidDesk stack check {int(time.time())}"
 try:
     msg = EmailMessage()
     msg["From"] = "rfq-test@example.com"
     msg["To"] = "bids@nordwind-turbine.example"
     msg["Subject"] = subject
-    msg.set_content("Step 1 SMTP test. Synthetic data.")
+    msg.set_content("SMTP test from check_stack.py. Synthetic data.")
     with smtplib.SMTP("localhost", 1025, timeout=10) as s:
         s.send_message(msg)
     time.sleep(1)
