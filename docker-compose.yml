@@ -1,5 +1,4 @@
 # BidDesk - local stack (step 1)
-# Personal self-learning project. Not affiliated with any employer. All data is synthetic.
 #
 # Services and host ports:
 #   mailpit              SMTP host 1025 (container 2525), web UI + REST API 8025

@@ -1,7 +1,5 @@
 # Build your own intake flow from the BidDesk template
 
-> Personal self-learning project. Not affiliated with any employer. All data is synthetic.
-
 For people who do not write code. You will take the BidDesk RFQ flow, point it at your own mail rule and your own table, test it and publish it. You need the stack from the [README quick start](../README.md) running (Mailpit, Baserow, Activepieces and the extraction service).
 
 ## The flow at a glance

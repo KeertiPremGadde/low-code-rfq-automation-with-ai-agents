@@ -1,7 +1,5 @@
 # Governance notes
 
-> Personal self-learning project. Not affiliated with any employer. All data is synthetic.
-
 What BidDesk does today to keep an AI step under control, where it falls short, and what a production version would need. It is a demo on a laptop; treat the last section as the real to-do list.
 
 ## Controls in place

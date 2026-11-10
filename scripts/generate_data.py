@@ -265,7 +265,7 @@ def render_pdf(rec: dict, layout: int, date_style: int) -> None:
             txt += f"We need your offer before {due_txt}. "
         txt += f"Call me on {rec['_phone']} if anything is unclear. Thanks, {rec['_contact'].split()[0]}"
         items.append(Paragraph(txt, body))
-    items += [Spacer(1, 18), Paragraph("Synthetic document for a personal learning project. Not a real request.", small)]
+    items += [Spacer(1, 18), Paragraph("Synthetic document. Not a real request.", small)]
     doc.build(items)
 
 
